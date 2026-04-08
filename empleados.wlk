@@ -1,47 +1,79 @@
 object galvan {
-    var sueldo = 15000
-    var fondoSueldo = 15000
+    var sueldo = 15000 //variables son atributos
+    var fondoSueldo = 0
+    var deuda = 0
+    method deuda(){
+        return deuda
+    }
     method sueldo(){
         return sueldo
+    }
+    method dinero(){
+        return fondoSueldo
     }
     method sueldo(_sueldo){
         sueldo = _sueldo
     }
-    method recibirSueldo(dinero){
-        fondoSueldo = fondoSueldo + dinero
+    method recibirSueldo(){
+        self.pagarDeuda()
+        fondoSueldo= fondoSueldo + sueldo
+        
     }
+    method pagarDeuda(){
+        if (deuda >= sueldo){
+            deuda = deuda-sueldo
+            sueldo = 0
+        }else {
+            sueldo= sueldo-deuda
+            deuda = 0
+
+        }
+        
+    }
+    method gastar(cantidad){
+        if (fondoSueldo >= cantidad){
+            fondoSueldo = fondoSueldo - cantidad
+        }else {
+            deuda = deuda + (cantidad - fondoSueldo)
+            fondoSueldo = 0
+        }
 
 
+    }
 }
+
 object baigorria {
     
-    var empanadasVendidas=0
+    var cantidadEmpanadasVendidas=0
     var fondoSueldo = 0
-    method ventaDeEmpanada(ventas) {
-        empanadasVendidas = empanadasVendidas + ventas
+    const comisionPorEmpanada = 15
+    method vender(cantEmpanadas) {
+        cantidadEmpanadasVendidas = cantidadEmpanadasVendidas + cantEmpanadas
     }
     method empanadasVendidas(){
-        return empanadasVendidas
+        return cantidadEmpanadasVendidas
     }
     method sueldo(){
-        return empanadasVendidas * 15
+        return cantidadEmpanadasVendidas * comisionPorEmpanada
     }
-    method recibirSueldo(sueldo){
-        fondoSueldo = fondoSueldo + sueldo
+    method recibirSueldo(){
+        fondoSueldo = fondoSueldo + self.sueldo()
+        cantidadEmpanadasVendidas=0
+
+    }
+    method totalCobrado(){
+        return fondoSueldo
     }
 }
 
 object gimenez {
     var fondo = 300000
-    var empleadoAPagar = galvan
-    method fondoRestante(){
+    method fondo(){
         return fondo
     }
-    method cambiarPagoA(empleado){
-        empleadoAPagar = empleado
-    }
-    method pagar(sueldo) {
-        fondo = fondo - sueldo
-        empleadoAPagar.drecibirSueldo(sueldo)
+    
+    method pagarSueldo(empleado) {
+        fondo = fondo - empleado.sueldo()
+        empleado.recibirSueldo()
     }
 }
