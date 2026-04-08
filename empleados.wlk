@@ -9,7 +9,7 @@ object galvan {
         return sueldo
     }
     method ponerEnDinero(){
-        dinero = sueldo
+        dinero = dinero+sueldo
     }
     method dinero(){
         return dinero
