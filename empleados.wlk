@@ -1,6 +1,5 @@
 object galvan {
     var sueldo = 15000 //variables son atributos
-    var fondoSueldo = 0
     var deuda = 0
     var dinero = 0 
     method deuda(){
@@ -21,7 +20,6 @@ object galvan {
     method recibirSueldo(){
         self.ponerEnDinero()
         self.pagarDeuda()
-        fondoSueldo = fondoSueldo + dinero
         
     }
     method pagarDeuda(){
